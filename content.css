@@ -1,0 +1,238 @@
+/* VoxMark AI - Floating Playback HUD Stylesheet (Glassmorphic Dark UI) */
+
+:host {
+  all: initial;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #f8fafc;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.voxmark-hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px 8px 16px;
+  background: rgba(13, 17, 23, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.55),
+              0 0 0 1px rgba(255, 255, 255, 0.08),
+              0 0 24px -2px rgba(99, 102, 241, 0.35);
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 440px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.voxmark-hud.voxmark-visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.voxmark-hud.voxmark-hiding {
+  transform: translateY(16px) scale(0.92);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Progress track along bottom */
+.voxmark-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.voxmark-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+  transition: width 0.25s linear;
+}
+
+/* Audio visualizer equalizer bars */
+.voxmark-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 18px;
+  padding-right: 2px;
+}
+
+.voxmark-bar {
+  width: 3px;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #38bdf8, #818cf8);
+  transition: height 0.15s ease;
+}
+
+.voxmark-playing .voxmark-bar:nth-child(1) {
+  animation: voxmark-wave-anim 0.8s ease-in-out infinite alternate;
+}
+.voxmark-playing .voxmark-bar:nth-child(2) {
+  animation: voxmark-wave-anim 0.8s ease-in-out infinite 0.2s alternate;
+}
+.voxmark-playing .voxmark-bar:nth-child(3) {
+  animation: voxmark-wave-anim 0.8s ease-in-out infinite 0.4s alternate;
+}
+.voxmark-playing .voxmark-bar:nth-child(4) {
+  animation: voxmark-wave-anim 0.8s ease-in-out infinite 0.15s alternate;
+}
+.voxmark-playing .voxmark-bar:nth-child(5) {
+  animation: voxmark-wave-anim 0.8s ease-in-out infinite 0.35s alternate;
+}
+
+@keyframes voxmark-wave-anim {
+  0% { height: 4px; }
+  100% { height: 18px; }
+}
+
+/* Metadata & text info */
+.voxmark-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 90px;
+  max-width: 170px;
+}
+
+.voxmark-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.voxmark-brand {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.voxmark-mode-badge {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  letter-spacing: 0.4px;
+}
+
+.voxmark-status {
+  font-size: 11px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+/* Action controls */
+.voxmark-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.voxmark-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.voxmark-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.06);
+}
+
+.voxmark-btn:active {
+  transform: scale(0.94);
+}
+
+.voxmark-btn-primary {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  border-color: rgba(165, 180, 252, 0.4);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+  width: 34px;
+  height: 34px;
+}
+
+.voxmark-btn-primary:hover {
+  background: linear-gradient(135deg, #4338ca, #4f46e5);
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.7);
+}
+
+.voxmark-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.voxmark-btn-stop:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* Speed tag */
+.voxmark-speed-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 3px 6px;
+  border-radius: 6px;
+  margin-left: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Toast/Alert inside HUD */
+.voxmark-alert {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 11px;
+  color: #fca5a5;
+  z-index: 10;
+  animation: voxmark-fade-in 0.2s ease forwards;
+}
+
+@keyframes voxmark-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
